@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+button {
+  border-radius: 8px;
+  border: 2px solid black;
+  padding: 0.4em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input, textarea{
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 20px;
+}
+p{
+  white-space: pre-line;
+}
+
+body{
+  margin: 0;
+  height: 100vh;
+}
+
+.navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #242424;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  font-size: larger;
+}
+.navbar h1{
+  color: #f9f9f9;
+  margin: 0;
+  font-size: xx-large;
+}
+.navbar ul{
+  list-style-type: none;
+}
+.navlink{
+  color: #f9f9f9;
+  text-decoration: none;
+}
+
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 2.5rem;
+  margin-top: 100px;
+  background-color: #252525;
+  color: #f9f9f9;
+}
+
+.blog-item{
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 100%;
+  padding: 15px;
+}
+
+.form-item{
+  display: flex;
+  flex-direction: row;
+}
+.form-item *{
+  flex-basis: 100%;
+  vertical-align: bottom;
+}
+.form-item label{
+  flex-basis: 2%;
+  font-size: 25px;
+  font-weight: bold;
+  margin-right: 20px;
+}
