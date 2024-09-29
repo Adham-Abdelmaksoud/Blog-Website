@@ -80,6 +80,9 @@ body{
   width: 100%;
   padding: 15px;
 }
+.blog-item:hover{
+  cursor: pointer;
+}
 
 .form-item{
   display: flex;

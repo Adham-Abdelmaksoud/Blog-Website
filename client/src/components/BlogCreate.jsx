@@ -47,7 +47,7 @@ const BlogCreate = () => {
                 <div className="flex flex-col">
                     <input className="bg-slate-200 w-full" onChange={(e) => setBlogTitle(e.target.value)}
                         id="blog_title" type="text" />
-                    <p className={emptyBody?"text-red-900 mt-2":"hidden"}>
+                    <p className={emptyTitle?"text-red-900 mt-2":"hidden"}>
                         Blog Title Cannot Be Empty!!
                     </p>
                 </div>

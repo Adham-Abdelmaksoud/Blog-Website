@@ -8,10 +8,12 @@ app.listen(5000, () => {
 
 let blogs = [
     {
+        id: 1,
         title: 'blog1',
         body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae dignissimos nostrum quis accusamus soluta explicabo natus deleniti iure vero asperiores voluptatem beatae adipisci, aperiam minima corrupti ad provident rerum est.'
     },
     {
+        id: 2,
         title: 'blog2',
         body: 'some other text'
     }
@@ -20,15 +22,32 @@ let blogs = [
 app.use(bodyParser.json());
 
 app.get('/api/blogs', (req, res) => {
-    console.log(req.protocol, req.hostname, req.path);
     res.json({
         blogs: blogs
     });
 });
 
+app.get('/api/blogs/:id', (req, res) => {
+    let id = parseInt(req.params.id);
+    let blog = blogs.find((e) => e.id === id);
+    res.json({
+        blog: blog
+    });
+});
+
 app.post('/api/blogs', (req, res) => {
-    console.log(req.body);
-    blogs.push(req.body);
+    let max_id = 0;
+    blogs.forEach((e) => {
+        if(max_id < e.id){
+            max_id = e.id;
+        }
+    });
+    let new_blog = {
+        id: max_id+1,
+        title: req.body.title,
+        body: req.body.body
+    }
+    blogs.push(new_blog);
     res.json({
         message: 'blog created successfully',
         blogs: blogs
