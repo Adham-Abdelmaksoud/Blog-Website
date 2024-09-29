@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const SingleBlog = () => {
     const [blog, setBlog] = useState(null);
+    const [showDropDown, setShowDropDown] = useState(false);
 
     let { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`/api/blogs/${id}`)
@@ -14,8 +16,21 @@ const SingleBlog = () => {
             })
     }, [id]);
 
+    const handleEdit = () => {
+
+    }
+
+    const handleDelete = () => {
+        fetch(`/api/blogs/${id}`, {method: 'delete'})
+            .then((res) => res.text())
+            .then((data) => {
+                console.log(data);
+                navigate('/');
+            })
+    }
+
     return (
-        <main className="my-10 mx-14 pb-20">
+        <main className="flex flex-row justify-between pb-20 px-14 pt-10">
             { blog &&
                 <section className="space-y-5">
                     <h1 className="text-4xl font-bold">
@@ -26,6 +41,18 @@ const SingleBlog = () => {
                     </p>
                 </section>
             }
+
+            <aside>
+                <figure className="w-20 px-1">
+                    <img className="settings mb-1" onClick={() => setShowDropDown(!showDropDown)} src="../public/setting.png" alt="settings" />
+                </figure>
+                { showDropDown &&
+                    <ul className="dropdownlist">
+                        <li onClick={handleEdit}>Edit</li>
+                        <li onClick={handleDelete}>Delete</li>
+                    </ul>
+                }
+            </aside>
         </main>
     );
 }

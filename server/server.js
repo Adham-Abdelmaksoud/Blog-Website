@@ -28,8 +28,8 @@ app.get('/api/blogs', (req, res) => {
 });
 
 app.get('/api/blogs/:id', (req, res) => {
-    let id = parseInt(req.params.id);
-    let blog = blogs.find((e) => e.id === id);
+    const id = parseInt(req.params.id);
+    const blog = blogs.find((e) => e.id === id);
     res.json({
         blog: blog
     });
@@ -53,3 +53,12 @@ app.post('/api/blogs', (req, res) => {
         blogs: blogs
     });
 });
+
+app.delete('/api/blogs/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    blogs = blogs.filter((e) => e.id !== id);
+    res.json({
+        message: `blog of id=${id} deleted successfully`,
+        blogs: blogs
+    });
+})

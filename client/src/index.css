@@ -98,3 +98,21 @@ body{
   font-weight: bold;
   margin-right: 20px;
 }
+
+@keyframes rotator {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(90deg);
+  }
+}
+.settings:hover{
+  animation: rotator 1s;
+}
+.dropdownlist li{
+  border: 1px solid black;
+  padding: 7px;
+  font-size: large;
+  cursor: pointer;
+}
