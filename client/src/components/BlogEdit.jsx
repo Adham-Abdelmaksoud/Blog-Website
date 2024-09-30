@@ -1,32 +1,42 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const BlogCreate = () => {
+const BlogEdit = () => {
     const [blogTitle, setBlogTitle] = useState('');
     const [blogBody, setBlogBody] = useState('');
     const [emptyTitle, setEmptyTitle] = useState(false);
     const [emptyBody, setEmptyBody] = useState(false);
 
     const navigate = useNavigate();
+    const { id } = useParams();
 
-    let newBlog = {
+    useEffect(() => {
+        fetch(`/api/blogs/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setBlogTitle(data.blog.title);
+                setBlogBody(data.blog.body);
+            });
+    }, [id]);
+
+    let editedBlog = {
         title: blogTitle,
         body: blogBody
     };
 
-    let handleCreateBlogSubmit = () => {
+    let handleEditBlogSubmit = () => {
         if(blogTitle !== '' && blogBody !== ''){
-            fetch('/api/blogs', {
-                method: "post",
+            fetch(`/api/blogs/${id}`, {
+                method: "put",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(newBlog)
+                body: JSON.stringify(editedBlog)
             })
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
-                    navigate('/');
+                    navigate(`/blogs/${id}`);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -46,7 +56,7 @@ const BlogCreate = () => {
                 </label>
                 <div className="flex flex-col">
                     <input className="bg-slate-200 w-full" onChange={(e) => setBlogTitle(e.target.value)}
-                        id="blog_title" type="text" />
+                        id="blog_title" type="text" value={ blogTitle }/>
                     <p className={ emptyTitle?"text-red-900 mt-2":"hidden" }>
                         Blog Title Cannot Be Empty!!
                     </p>
@@ -59,18 +69,18 @@ const BlogCreate = () => {
                 </label>
                 <div>
                     <textarea className="h-80 bg-slate-200 w-full" onChange={(e) => setBlogBody(e.target.value)} 
-                        id="blog_body"></textarea>
+                        id="blog_body" value={ blogBody }></textarea>
                     <p className={ emptyBody?"text-red-900 mt-2":"hidden" }>
                         Blog Body Cannot Be Empty!!
                     </p>
                 </div>
             </section>
 
-            <button onClick={handleCreateBlogSubmit} type="button" className="font-bold text-xl bg-slate-200">
-                Create Blog
+            <button onClick={handleEditBlogSubmit} type="button" className="font-bold text-xl bg-slate-200">
+                Save Blog
             </button>
         </form>
     );
 }
  
-export default BlogCreate;
+export default BlogEdit;

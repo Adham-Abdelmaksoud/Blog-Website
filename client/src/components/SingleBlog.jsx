@@ -17,7 +17,7 @@ const SingleBlog = () => {
     }, [id]);
 
     const handleEdit = () => {
-
+        navigate(`/blogs/${id}/edit`);
     }
 
     const handleDelete = () => {

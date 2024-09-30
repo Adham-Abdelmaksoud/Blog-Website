@@ -54,6 +54,20 @@ app.post('/api/blogs', (req, res) => {
     });
 });
 
+app.put('/api/blogs/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    blogs.forEach((e) => {
+        if(e.id === id){
+            e.title = req.body.title,
+            e.body = req.body.body
+        }
+    });
+    res.json({
+        message: `blog of id=${id} modified successfully`,
+        blogs: blogs
+    })
+})
+
 app.delete('/api/blogs/:id', (req, res) => {
     const id = parseInt(req.params.id);
     blogs = blogs.filter((e) => e.id !== id);
